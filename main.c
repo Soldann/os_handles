@@ -12,6 +12,9 @@ int main(){
     printf("%i\n", h1);
     handle_alloc(&h1);
     printf("%i\n", h1);
+
+    handle_init(); // won't do anything because handle_system already initialized
+
     handle_free(1);
     handle_alloc(&h1);
     printf("%i\n", h1);

@@ -1,10 +1,12 @@
 #include "handle.h"
 
 #include <stdlib.h>
+#include <stdbool.h>
 
 static union handle_node * handle_system = NULL;
 static HANDLE handle_system_size;
 static HANDLE handle_first_available;
+static bool handle_system_initialized = false;
 
 static int handle_system_resize(HANDLE new_size){
     union handle_node * old_handle_system = handle_system;
@@ -32,14 +34,19 @@ static int handle_system_resize(HANDLE new_size){
 }
 
 int handle_init(){
+    if (handle_system_initialized) return 2;
+
     handle_system_size = 0;
     handle_first_available = 0;
 
-    return handle_system_resize(HANDLE_SYSTEM_INIT_SIZE);    
+    int retvalue = handle_system_resize(HANDLE_SYSTEM_INIT_SIZE);
+    if (retvalue == 0) handle_system_initialized = true;
+    return retvalue;
 }
 
 void handle_cleanup(){
     free(handle_system); // this won't fail unless memory gets corrupted
+    handle_system_initialized = false;
 }
 
 int handle_alloc(HANDLE * retvalue){
