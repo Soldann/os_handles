@@ -24,7 +24,7 @@ static int handle_system_resize(HANDLE new_size){
         handle_system[i].next_free_handle = i + 1;
     }
 
-    handle_system[new_size - 1].next_free_handle = MAX_HANDLE; // set marker to know when the array needs to be resized
+    handle_system[new_size - 1].next_free_handle = HANDLE_NULL; // set marker to know when the array needs to be resized
 
     handle_system_size = new_size;
 
@@ -50,7 +50,7 @@ void handle_cleanup(){
 }
 
 int handle_alloc(HANDLE * retvalue){
-    if (handle_first_available == MAX_HANDLE){ // if this is the case we are out of space and need to resize the array
+    if (handle_first_available == HANDLE_NULL){ // if this is the case we are out of space and need to resize the array
         HANDLE new_size = handle_system_size * 2;
 
         if (new_size < handle_system_size) return 1; // we have overflowed and cannot tolerate more handles

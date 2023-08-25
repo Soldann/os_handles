@@ -4,7 +4,7 @@
 #include <limits.h>
 
 #define HANDLE_SYSTEM_INIT_SIZE 1
-#define MAX_HANDLE UINT_MAX
+#define HANDLE_NULL UINT_MAX
 
 typedef unsigned int HANDLE;
 
