@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 #include <stdbool.h>
+#include <errno.h>
 
 static union handle_node * handle_system = NULL;
 static HANDLE handle_system_size;
@@ -49,20 +50,26 @@ void handle_cleanup(){
     handle_system_initialized = false;
 }
 
-int handle_alloc(HANDLE * retvalue) {
-    *retvalue = handle_first_available;
+HANDLE handle_alloc() {
     if (handle_first_available == HANDLE_NULL){ // if this is the case we are out of space and need to resize the array
         HANDLE new_size = handle_system_size * 2;
 
-        if (new_size < handle_system_size) return 2; // we have overflowed and cannot tolerate more handles
+        if (new_size < handle_system_size) {
+            errno = EOVERFLOW;
+            return HANDLE_NULL;
+        } // we have overflowed and cannot tolerate more handles
 
         handle_first_available = handle_system_size; // first available handle is the first handle in the newly added block
 
-        if (handle_system_resize(new_size)) return 1; // if resize fails then malloc error
+        if (handle_system_resize(new_size)) { // if resize fails then malloc error
+            errno = EOVERFLOW;
+            return HANDLE_NULL;
+        }
     }
+    HANDLE retvalue = handle_first_available;
     handle_first_available = handle_system[handle_first_available].next_free_handle;
 
-    return 0;
+    return retvalue;
 }
 
 void handle_free(HANDLE handle){

@@ -6,19 +6,19 @@ int main(){
     handle_init();
 
     HANDLE h1;
-    handle_alloc(&h1);
+    h1 = handle_alloc();
     printf("%i\n", h1);
-    handle_alloc(&h1);
+    h1 = handle_alloc();
     printf("%i\n", h1);
-    handle_alloc(&h1);
+    h1 = handle_alloc();
     printf("%i\n", h1);
 
     handle_init(); // won't do anything because handle_system already initialized
 
     handle_free(1);
-    handle_alloc(&h1);
+    h1 = handle_alloc();
     printf("%i\n", h1);
-    handle_alloc(&h1);
+    h1 = handle_alloc();
     printf("%i\n", h1);
 
     int x = 3;

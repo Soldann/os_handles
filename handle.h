@@ -17,7 +17,7 @@ int handle_init(); // initialize the handle system
 
 void handle_cleanup(); //deallocate the handle system
 
-int handle_alloc(HANDLE * retvalue);
+HANDLE handle_alloc();
 
 void handle_free(HANDLE handle);
 
