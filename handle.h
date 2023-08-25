@@ -21,8 +21,10 @@ int handle_alloc(HANDLE * retvalue);
 
 void handle_free(HANDLE handle);
 
-int handle_bind(HANDLE handle, void * data); // handles arbitrary data type
+void handle_bind(HANDLE handle, void * data); // handles arbitrary data type
 
-int handle_release(HANDLE handle);
+void handle_release(HANDLE handle);
+
+void * handle_get(HANDLE handle);
 
 #endif

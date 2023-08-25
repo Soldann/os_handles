@@ -64,10 +64,14 @@ void handle_free(HANDLE handle){
     handle_first_available = handle;
 }
 
-int handle_bind(HANDLE handle, void * data){
-
+void handle_bind(HANDLE handle, void * data){
+    handle_system[handle].data = data;
 }
 
-int handle_release(HANDLE handle){
+void handle_release(HANDLE handle){
+    handle_system[handle].data = NULL;
+}
 
+void * handle_get(HANDLE handle){
+    return handle_system[handle].data;
 }

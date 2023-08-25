@@ -18,5 +18,10 @@ int main(){
     handle_alloc(&h1);
     printf("%i\n", h1);
 
+    int x = 3;
+    handle_bind(0, &x);
+    *(int *) handle_get(0) = 10;
+    printf("X is %i\n", x);
+
     handle_cleanup();
 }
