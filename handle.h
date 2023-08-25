@@ -26,6 +26,7 @@ struct handle_node {
 
 /**
  * Initializes the data structures required for the handle tracking system
+ *  MUST be run prior to using any other Handle System function
  * 
  * @return 0 for success or 1 for malloc failure
  */
@@ -34,6 +35,7 @@ int handle_init();
 
 /**
  * Frees the data structures used for handle tracking
+ *  MUST be called prior to ending the program
  * 
  */
 void handle_cleanup();
@@ -66,7 +68,7 @@ void handle_bind(HANDLE handle, void * data);
  * 
  * @param handle The handle who will be unbound from its corresponding data
  */
-void handle_release(HANDLE handle);
+void handle_reset(HANDLE handle);
 
 /**
  * Returns the data to which the handle is currently bound

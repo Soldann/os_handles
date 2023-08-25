@@ -76,7 +76,7 @@ HANDLE handle_alloc() {
 void handle_free(HANDLE handle){
     // add handle to "front" of the available handles
     if (handle != HANDLE_NULL) {
-        handle_release(handle);
+        handle_reset(handle);
         handle_system[handle].next_free_handle = handle_first_available;
         handle_first_available = handle;
     }
@@ -86,7 +86,7 @@ void handle_bind(HANDLE handle, void * data){
     if (handle != HANDLE_NULL) handle_system[handle].data = data;
 }
 
-void handle_release(HANDLE handle){
+void handle_reset(HANDLE handle){
     if (handle != HANDLE_NULL) handle_system[handle].data = NULL;
 }
 
