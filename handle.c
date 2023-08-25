@@ -56,6 +56,7 @@ HANDLE handle_alloc() {
         HANDLE new_size = handle_system_size * 2;
 
         if (new_size < handle_system_size) {
+            DEBUG_PRINT_ARG("handle_alloc overflow, new size is %i \n", new_size)
             errno = EOVERFLOW;
             return HANDLE_NULL;
         } // we have overflowed and cannot tolerate more handles
@@ -63,6 +64,7 @@ HANDLE handle_alloc() {
         handle_first_available = handle_system_size; // first available handle is the first handle in the newly added block
 
         if (handle_system_resize(new_size)) { // if resize fails then malloc error
+            DEBUG_PRINT("handle_alloc malloc failure")
             errno = EOVERFLOW;
             return HANDLE_NULL;
         }
