@@ -3,7 +3,7 @@
 
 #include "handle.h"
 
-HANDLE my_os_open(const char * filename);
+HANDLE my_os_open(char * filename);
 
 int my_os_read(HANDLE handle, char * buffer, int len);
 

@@ -4,11 +4,11 @@
 #include <string.h>
 #include <stdio.h>
 
-HANDLE my_os_open(const char * filename){
+HANDLE my_os_open(char * filename){
     HANDLE new_handle = handle_alloc();
 
     if (new_handle != HANDLE_NULL){
-        handle_bind(new_handle, (const void *) filename);
+        handle_bind(new_handle, (void *) filename);
     }
     return new_handle;
 }
