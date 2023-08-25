@@ -2,7 +2,6 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
 
 HANDLE my_os_open(char * filename){
     HANDLE new_handle = handle_alloc();
@@ -16,6 +15,9 @@ HANDLE my_os_open(char * filename){
 int my_os_read(HANDLE handle, char * buffer, int len){
     // construct some fake data to read
     char * data1 = handle_get(handle);
+
+    if (data1 == NULL) return 1; // invalid handle somehow
+
     char data2[18] = "Contents of file ";
     
     strncpy(buffer, data2, len);

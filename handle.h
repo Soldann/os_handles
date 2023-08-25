@@ -8,7 +8,7 @@
 
 typedef unsigned int HANDLE;
 
-union handle_node {
+struct handle_node {
     HANDLE next_free_handle;
     void * data;
 };

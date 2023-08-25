@@ -4,14 +4,14 @@
 #include <stdbool.h>
 #include <errno.h>
 
-static union handle_node * handle_system = NULL;
+static struct handle_node * handle_system = NULL;
 static HANDLE handle_system_size;
 static HANDLE handle_first_available;
 static bool handle_system_initialized = false;
 
 static int handle_system_resize(HANDLE new_size){
-    union handle_node * old_handle_system = handle_system;
-    handle_system = malloc(new_size*sizeof(union handle_node)); // allocate space for new size
+    struct handle_node * old_handle_system = handle_system;
+    handle_system = malloc(new_size*sizeof(struct handle_node)); // allocate space for new size
 
     // printf("Resizing to %i\n", new_size);
 
@@ -23,6 +23,7 @@ static int handle_system_resize(HANDLE new_size){
 
     for (HANDLE i = handle_system_size; i < new_size; ++i) { // initialize new section of handle_system
         handle_system[i].next_free_handle = i + 1;
+        handle_system[i].data = NULL;
     }
 
     handle_system[new_size - 1].next_free_handle = HANDLE_NULL; // set marker to know when the array needs to be resized
@@ -75,6 +76,7 @@ HANDLE handle_alloc() {
 void handle_free(HANDLE handle){
     // add handle to "front" of the available handles
     if (handle != HANDLE_NULL) {
+        handle_release(handle);
         handle_system[handle].next_free_handle = handle_first_available;
         handle_first_available = handle;
     }
