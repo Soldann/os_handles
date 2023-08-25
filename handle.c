@@ -49,7 +49,8 @@ void handle_cleanup(){
     handle_system_initialized = false;
 }
 
-int handle_alloc(HANDLE * retvalue){
+int handle_alloc(HANDLE * retvalue) {
+    *retvalue = handle_first_available;
     if (handle_first_available == HANDLE_NULL){ // if this is the case we are out of space and need to resize the array
         HANDLE new_size = handle_system_size * 2;
 
@@ -59,7 +60,6 @@ int handle_alloc(HANDLE * retvalue){
 
         if (handle_system_resize(new_size)) return 1; // if resize fails then malloc error
     }
-    *retvalue = handle_first_available;
     handle_first_available = handle_system[handle_first_available].next_free_handle;
 
     return 0;
