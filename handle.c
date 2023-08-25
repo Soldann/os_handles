@@ -74,18 +74,21 @@ HANDLE handle_alloc() {
 
 void handle_free(HANDLE handle){
     // add handle to "front" of the available handles
-    handle_system[handle].next_free_handle = handle_first_available;
-    handle_first_available = handle;
+    if (handle != HANDLE_NULL) {
+        handle_system[handle].next_free_handle = handle_first_available;
+        handle_first_available = handle;
+    }
 }
 
 void handle_bind(HANDLE handle, void * data){
-    handle_system[handle].data = data;
+    if (handle != HANDLE_NULL) handle_system[handle].data = data;
 }
 
 void handle_release(HANDLE handle){
-    handle_system[handle].data = NULL;
+    if (handle != HANDLE_NULL) handle_system[handle].data = NULL;
 }
 
 void * handle_get(HANDLE handle){
+    if (handle == HANDLE_NULL) return NULL;
     return handle_system[handle].data;
 }
