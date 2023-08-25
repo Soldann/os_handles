@@ -15,6 +15,8 @@ int main(){
     handle_free(1);
     handle_alloc(&h1);
     printf("%i\n", h1);
+    handle_alloc(&h1);
+    printf("%i\n", h1);
 
     handle_cleanup();
 }
