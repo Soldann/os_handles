@@ -53,7 +53,7 @@ int handle_alloc(HANDLE * retvalue){
     if (handle_first_available == HANDLE_NULL){ // if this is the case we are out of space and need to resize the array
         HANDLE new_size = handle_system_size * 2;
 
-        if (new_size < handle_system_size) return 1; // we have overflowed and cannot tolerate more handles
+        if (new_size < handle_system_size) return 2; // we have overflowed and cannot tolerate more handles
 
         handle_first_available = handle_system_size; // first available handle is the first handle in the newly added block
 
