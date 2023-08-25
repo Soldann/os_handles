@@ -100,6 +100,8 @@ This style of combined vector and linked list enables the system to best match u
 -  A struct was chosen for `handle_node` as that allows the system to more robust to failure if illegal handles are used. A `union` can be used instead to save on memory usage in the data structure, however that was deemed a lower priority.
 -  Generally speaking there will be a moderate amount of wasted space from this data structure due to unallocated handles still requiring space in the data structure (compare to a standard linked list where no extra nodes needed to be pre-allocated). However as space was deemed the lowest priority this sacrifice was made for faster runtimes.
 
+Essentially, this structure combines the best parts of a linked list and a vector for best overall performance.
+
 ## Usage and Testing
 
 The handle API is implemented in `handle.h` and `handle.c`. Prior to using it you must call  `handle_init()` and before exiting the program you must call `handle_cleanup()` in order to allocate and deallocate the handle data structure.
