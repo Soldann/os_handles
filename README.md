@@ -43,11 +43,10 @@ FIRST      +------+------+------+------+-----+-------------+
 ```
 
 Also similar to a linked list however, we separately store a pointer to the first available handle in the list.
+For simplicity, we will remove the data fields in any following diagrams:
 
 #### Allocation
 To allocate a new handle to be used, we use the value stored in FIRST (`handle_first_available` in the code). That slot is allocated away, and we use the `next` field in that slot to update FIRST for the next allocation.
-
-For simplicity, we remove the data fields in the following diagram:
 
 ```
         Allocated Slot 0
