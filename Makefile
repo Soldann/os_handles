@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS = -g -Wall
 BUILDDIR = build
 
-SOURCES = main.c handle.c
+SOURCES = main.c handle.c my_os.c
 OBJECTS = $(SOURCES:.c=.o)
 TARGET = main
 
