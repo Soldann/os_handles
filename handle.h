@@ -24,18 +24,57 @@ struct handle_node {
     void * data;
 };
 
-int handle_init(); // initialize the handle system
+/**
+ * Initializes the data structures required for the handle tracking system
+ * 
+ * @return 0 for success or 1 for malloc failure
+ */
+int handle_init();
 
-void handle_cleanup(); //deallocate the handle system
 
+/**
+ * Frees the data structures used for handle tracking
+ * 
+ */
+void handle_cleanup();
+
+/**
+ * Allocates a new handle to be bound and used. May resize the handle data structure if needed
+ * 
+ * @return A valid handle on success or HANDLE_NULL on failure. If failure, will write the error code to errno
+ */
 HANDLE handle_alloc();
 
+/**
+ * Will call handle_release first, then will free up the handle passed to allow it to be allocated again
+ * 
+ * @param handle The handle to be freed
+ */
 void handle_free(HANDLE handle);
 
-void handle_bind(HANDLE handle, void * data); // handles arbitrary data type
+/**
+ * Binds data to a specific handle
+ * 
+ * @param handle The handle to which the data will be bound
+ * @param data The data structure to bind to this handle. Can be arbitrary type
+ */
+void handle_bind(HANDLE handle, void * data);
 
+/**
+ * Unbinds data from the specified handle. Note this does not free the handle to be reallocated again,
+ *  nor does it free the block of memory the handle was originally bound to. Safe to call after free(handle_get(<handle>))
+ * 
+ * @param handle The handle who will be unbound from its corresponding data
+ */
 void handle_release(HANDLE handle);
 
+/**
+ * Returns the data to which the handle is currently bound
+ * 
+ * @param handle The handle to which you are requesting the bound data
+ * 
+ * @return Pointer to the data bound to that handle. If NULL, the handle is either unbound or invalid
+ */
 void * handle_get(HANDLE handle);
 
 #endif
