@@ -13,7 +13,7 @@ static int handle_system_resize(HANDLE new_size){
     struct handle_node * old_handle_system = handle_system;
     handle_system = malloc(new_size*sizeof(struct handle_node)); // allocate space for new size
 
-    // printf("Resizing to %i\n", new_size);
+    DEBUG_PRINT_ARG("Resizing to %i\n", new_size)
 
     if (handle_system == NULL) return 1; // if malloc fails, error out
 

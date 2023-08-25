@@ -6,6 +6,17 @@
 #define HANDLE_SYSTEM_INIT_SIZE 1
 #define HANDLE_NULL UINT_MAX
 
+#define DEBUG_HANDLE 0
+
+#if DEBUG_HANDLE
+    #include <stdio.h>
+    #define DEBUG_PRINT(str) printf(str);
+    #define DEBUG_PRINT_ARG(str,arg) printf(str,arg);
+#else 
+    #define DEBUG_PRINT(str);
+    #define DEBUG_PRINT_ARG(str,num);
+#endif
+
 typedef unsigned int HANDLE;
 
 struct handle_node {
