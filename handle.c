@@ -1,6 +1,7 @@
 #include "handle.h"
 
 #include <stdlib.h>
+#include <string.h>
 #include <stdbool.h>
 #include <errno.h>
 
@@ -12,14 +13,11 @@ static bool handle_system_initialized = false;
 static int handle_system_resize(HANDLE new_size){
     struct handle_node * old_handle_system = handle_system;
     handle_system = malloc(new_size*sizeof(struct handle_node)); // allocate space for new size
-
     DEBUG_PRINT_ARG("Resizing to %i\n", new_size)
 
     if (handle_system == NULL) return 1; // if malloc fails, error out
 
-    for (HANDLE i = 0; i < handle_system_size; ++i) { // copy over data from old handle_system
-        handle_system[i] = old_handle_system[i];
-    }
+    memcpy(handle_system, old_handle_system, handle_system_size*sizeof(struct handle_node)); // copy over data from old handle_system
 
     for (HANDLE i = handle_system_size; i < new_size; ++i) { // initialize new section of handle_system
         handle_system[i].next_free_handle = i + 1;
